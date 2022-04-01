@@ -2,10 +2,10 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - BasicRigidBodyPush
+    - Puzzle1
     - Puzzle2
     - StarterAssets.FirstPersonController
     - StarterAssets.StarterAssetsInputs
-    - boxtoposition
     Cinemachine.dll:
     - Cinemachine.Cinemachine3rdPersonFollow
     - Cinemachine.CinemachineBasicMultiChannelPerlin
@@ -15,10 +15,12 @@ ScriptsOnlyBuild:
     - Cinemachine.NoiseSettings
     Unity.InputSystem.dll:
     - UnityEngine.InputSystem.InputActionAsset
+    - UnityEngine.InputSystem.InputActionReference
     - UnityEngine.InputSystem.InputSettings
     - UnityEngine.InputSystem.InputSystemObject
     - UnityEngine.InputSystem.PlayerInput
     - UnityEngine.InputSystem.RemoteInputPlayerConnection
+    - UnityEngine.InputSystem.UI.InputSystemUIInputModule
     Unity.ProBuilder.dll:
     - UnityEngine.ProBuilder.ProBuilderMesh
     Unity.Rider.Editor.dll:
@@ -29,20 +31,17 @@ ScriptsOnlyBuild:
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
     - TMPro.TextMeshPro
-    Unity.Timeline.Editor.dll:
-    - TimelineProjectSettings
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
-    - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
   sceneClasses:
-    Assets/Scenes/SampleScene.unity:
+    Assets/Scenes/Level1.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -71,6 +70,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
     - Class: 104
@@ -80,51 +83,53 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1504}
     - Class: 114
-      Script: {instanceID: 1506}
+      Script: {instanceID: 1562}
     - Class: 114
       Script: {instanceID: 1566}
     - Class: 114
-      Script: {instanceID: 1860}
+      Script: {instanceID: 1802}
     - Class: 114
-      Script: {instanceID: 2080}
+      Script: {instanceID: 1862}
     - Class: 114
-      Script: {instanceID: 2178}
+      Script: {instanceID: 2076}
     - Class: 114
-      Script: {instanceID: 2516}
+      Script: {instanceID: 2174}
     - Class: 114
-      Script: {instanceID: 2556}
+      Script: {instanceID: 2512}
     - Class: 114
-      Script: {instanceID: 2644}
+      Script: {instanceID: 2552}
     - Class: 114
-      Script: {instanceID: 2710}
+      Script: {instanceID: 2640}
     - Class: 114
-      Script: {instanceID: 2718}
+      Script: {instanceID: 2706}
     - Class: 114
-      Script: {instanceID: 2790}
+      Script: {instanceID: 2714}
     - Class: 114
-      Script: {instanceID: 2884}
+      Script: {instanceID: 2780}
     - Class: 114
-      Script: {instanceID: 3050}
+      Script: {instanceID: 2874}
     - Class: 114
-      Script: {instanceID: 3122}
+      Script: {instanceID: 3040}
     - Class: 114
-      Script: {instanceID: 3158}
+      Script: {instanceID: 3148}
     - Class: 114
-      Script: {instanceID: 3760}
+      Script: {instanceID: 3576}
     - Class: 114
-      Script: {instanceID: 3792}
+      Script: {instanceID: 3748}
     - Class: 114
-      Script: {instanceID: 4010}
+      Script: {instanceID: 3780}
     - Class: 114
-      Script: {instanceID: 4542}
+      Script: {instanceID: 3996}
     - Class: 114
-      Script: {instanceID: 4856}
+      Script: {instanceID: 4364}
     - Class: 114
-      Script: {instanceID: 5094}
+      Script: {instanceID: 4526}
     - Class: 114
-      Script: {instanceID: 5296}
+      Script: {instanceID: 4840}
     - Class: 114
-      Script: {instanceID: 21664}
+      Script: {instanceID: 5078}
+    - Class: 114
+      Script: {instanceID: 5280}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -154,12 +159,6 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
-      Hash: a6e561615949734e9f12f9b61661f43e
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Image
-  - hash:
-      serializedVersion: 2
       Hash: 5ab533713adae59372fb3e10a585c186
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -170,6 +169,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.InputSystem.dll
     namespaceName: UnityEngine.InputSystem.UI
     className: BaseInputOverride
+  - hash:
+      serializedVersion: 2
+      Hash: a6e561615949734e9f12f9b61661f43e
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Image
   - hash:
       serializedVersion: 2
       Hash: c24a778d9aa393e11e54bff320ca63de
@@ -262,6 +267,12 @@ ScriptsOnlyBuild:
     className: HorizontalLayoutGroup
   - hash:
       serializedVersion: 2
+      Hash: 8fb9ecbf7759cf820a63c3b1b02c3f47
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Puzzle2
+  - hash:
+      serializedVersion: 2
       Hash: 9b06583966b5c25325233c4ef1ab1fd4
     assemblyName: Unity.InputSystem.dll
     namespaceName: UnityEngine.InputSystem.HID.Editor
@@ -286,31 +297,13 @@ ScriptsOnlyBuild:
     className: CinemachineCameraOffset
   - hash:
       serializedVersion: 2
-      Hash: 2033715dcb303192e38eecf2ac3cf77b
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: UIVirtualJoystick
-  - hash:
-      serializedVersion: 2
-      Hash: ca54d32652c28295036b8ccd9a922bfb
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: UIVirtualTouchZone
-  - hash:
-      serializedVersion: 2
       Hash: 6225eb0973ab0af667bc5f9d1b1b18de
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineCollider
   - hash:
       serializedVersion: 2
-      Hash: 69d29cf613ff63b048ca101afb492b65
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: UIVirtualButton
-  - hash:
-      serializedVersion: 2
-      Hash: 19ab6bd7ab5d9402279100da006d7356
+      Hash: 448958487e291ad7edadde8695578942
     assemblyName: Assembly-CSharp.dll
     namespaceName: StarterAssets
     className: StarterAssetsInputs
@@ -466,12 +459,6 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
-      Hash: 58e68364412c67eae2bdb4954be2dcc2
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Readme
-  - hash:
-      serializedVersion: 2
       Hash: 760787567e1b60d64a3e421ab83ee14a
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -505,7 +492,7 @@ ScriptsOnlyBuild:
       Hash: 876497fbfcb7fbb9c616154e4c1bd1d4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: boxtoposition
+    className: Puzzle1
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -586,7 +573,7 @@ ScriptsOnlyBuild:
     className: BezierShape
   - hash:
       serializedVersion: 2
-      Hash: f90d123d2e383ac8148009fe135ef26f
+      Hash: 35df886e6c32f07688198b175d8127c7
     assemblyName: Assembly-CSharp.dll
     namespaceName: StarterAssets
     className: FirstPersonController
@@ -674,12 +661,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.InputSystem.dll
     namespaceName: UnityEngine.InputSystem.Editor
     className: InputActionAssetEditor
-  - hash:
-      serializedVersion: 2
-      Hash: ae5a0b23946ad462316ed69a6d8c273a
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: StarterAssets
-    className: UICanvasControllerInput
   - hash:
       serializedVersion: 2
       Hash: d3f29ba27f28c1f558880c4df5545ed3
@@ -830,12 +811,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.InputSystem.dll
     namespaceName: UnityEngine.InputSystem
     className: InputSettings
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: MobileDisableAutoSwitchControls
   - hash:
       serializedVersion: 2
       Hash: 295852e83016219fe0ab9a38fc36f74a
@@ -1142,13 +1117,7 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineBlendListCamera
-  - hash:
-      serializedVersion: 2
-      Hash: 4028fdb0811bd14575245a6d4c13205d
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Puzzle2
   platform: 19
   scenePathNames:
-  - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/5denmt52/Documents/Prototype4 Build/My project.exe
+  - Assets/Scenes/Level1.unity
+  playerPath: D:/Documents/Prototype 4 Build/My project.exe

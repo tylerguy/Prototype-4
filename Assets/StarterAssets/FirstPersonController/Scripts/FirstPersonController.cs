@@ -25,6 +25,11 @@ namespace StarterAssets
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 		public float CrouchSpeed = 2.0f;
+		public bool isplayer2;
+		
+
+		private Gamepad gamepad = Gamepad.current;
+		private bool ShouldCrouch => gamepad.buttonEast.isPressed && !duringCrouchAnimation && _controller.isGrounded && isplayer2;
 
 
 
@@ -63,6 +68,7 @@ namespace StarterAssets
 
 		// player
 		private float _speed;
+		
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
@@ -74,8 +80,10 @@ namespace StarterAssets
 		[SerializeField] private Vector3 crouchingCenter = new Vector3(0, 0.5f, 0);
 		[SerializeField] private Vector3 standingCenter = new Vector3(0, 0, 0);
 
-
+		private bool isCrouching;
 		private bool duringCrouchAnimation;
+		private bool canCrouch = true;
+		public AudioSource jump;
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
@@ -114,7 +122,8 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-			//Crouch();
+			if (canCrouch)
+				handleCrouch();
 		}
 
 		private void LateUpdate()
@@ -151,7 +160,7 @@ namespace StarterAssets
 		private void Move()
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
-			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			float targetSpeed = _input.sprint ? SprintSpeed : isCrouching ? CrouchSpeed : MoveSpeed ;
 
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -212,7 +221,9 @@ namespace StarterAssets
 				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
 				{
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
+					jump.Play();
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+					
 				}
 
 				// jump timeout
@@ -262,25 +273,23 @@ namespace StarterAssets
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
 
-		/* private void Crouch()
-		{
-			if (_input.crouch && !duringCrouchAnimation && Grounded )
-			{
-				StartCoroutine(CrouchStand());
-			}
-		}*/
-
-		/*private IEnumerator CrouchStand()
+		private void handleCrouch()
         {
-			if (_input.crouch && Physics.Raycast(_mainCamera.transform.position, Vector3.up, 1f))
+			if (ShouldCrouch)
+				StartCoroutine(CrouchStand());
+        }
+		
+		private IEnumerator CrouchStand()
+        {
+			if (isCrouching && Physics.Raycast(_mainCamera.transform.position, Vector3.up, 1f))
 				yield break;
-			
+
 			duringCrouchAnimation = true;
 
 			float timeElapsed = 0;
-			float targetHeight = _input.crouch ? standHeight : crouchHeight;
+			float targetHeight = isCrouching ? standHeight : crouchHeight;
 			float currentHeight = _controller.height;
-			Vector3 targetCenter = _input.crouch ? standingCenter : crouchingCenter;
+			Vector3 targetCenter = isCrouching ? standingCenter : crouchingCenter;
 			Vector3 currentCenter = _controller.center;
 
 			while(timeElapsed < timeToCrouch)
@@ -289,17 +298,15 @@ namespace StarterAssets
 				_controller.center = Vector3.Lerp(currentCenter, targetCenter, timeElapsed / timeToCrouch);
 				timeElapsed += Time.deltaTime;
 				yield return null;
-			}
+            }
 
 			_controller.height = targetHeight;
 			_controller.center = targetCenter;
 
-			_input.crouch = false;
-			
-			
+			isCrouching = !isCrouching;
 
 			duringCrouchAnimation = false;
         }
-	} */
 	}
+
 }

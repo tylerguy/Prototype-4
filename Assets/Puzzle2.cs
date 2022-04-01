@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class Puzzle2 : MonoBehaviour
 {
     public GameObject Puzzle2Obj;
     public Transform newloc;
     public float speed;
-    
+    public TextMeshPro textmeshPro;
+
+
+
 
     void OnTriggerEnter(Collider other)
     {
-       float step = speed * Time.deltaTime;
-        Puzzle2Obj.transform.position = Vector3.MoveTowards(Puzzle2Obj.transform.position, newloc.position, step);
+       
+        Puzzle2Obj.transform.Translate(Vector3.down * speed * Time.deltaTime);
         Debug.Log("collision");
+
+        
+        textmeshPro.SetText("Now you can");
+
+
+
+
+
+
     }
 }
